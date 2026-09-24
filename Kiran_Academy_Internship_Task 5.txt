@@ -1,0 +1,220 @@
+--LEVEL 1 — Food Detective
+
+--Task 1. Restaurants with rating greater than 4.5.
+SELECT * FROM restaurants
+WHERE rating > 4.5;
+
+--Task 2. Restaurants whose average order value is less than 300.
+SELECT * FROM restaurants
+WHERE avg_order_value < 300;
+
+--Task 3. All restaurants located in Pune.
+SELECT * FROM restaurants
+WHERE city = 'Pune';
+
+--Task 4. Restaurants having more than 20,000 orders.
+SELECT * FROM restaurants
+WHERE orders_count > 20000;
+
+--Task 5. Restaurants whose delivery time is greater than 40 minutes.
+SELECT * FROM restaurants
+WHERE est_delivery_time > 40;
+
+--Task 6. Restaurants whose rating is between 4.2 and 4.7.
+SELECT * FROM restaurants
+WHERE rating BETWEEN 4.2 AND 4.7;
+
+--Task 7. Restaurants belonging to South Indian, Italian or Biryani cuisine using IN.
+SELECT * FROM restaurants
+WHERE cuisine IN ('South Indian', 'Italian', 'Biryani');
+
+--Task 8. Restaurants owned by a person whose name contains 'Patil'.
+SELECT * FROM restaurants
+WHERE owner_name LIKE '%Patil%';
+
+--Task 9. Restaurants where brand matches the restaurant name.
+SELECT * FROM restaurants
+WHERE brand = restaurant_name;
+
+--Task 10. Restaurants having delivery fee less than 30.
+SELECT * FROM restaurants
+WHERE delivery_fee < 30;
+
+--LEVEL 2 — Recommendation Team
+
+--Task 11. The 5 restaurants with the highest number of orders.
+SELECT * FROM restaurants
+ORDER BY orders_count DESC
+LIMIT 5;
+
+--Task 12. The 5 restaurants with the lowest average order value.
+SELECT * FROM restaurants
+ORDER BY avg_order_value ASC
+LIMIT 5;
+
+--Task 13. Restaurants from highest rating to lowest rating.
+SELECT * FROM restaurants
+ORDER BY rating DESC;
+
+--Task 14. Only unique cuisines using DISTINCT.
+SELECT DISTINCT cuisine FROM restaurants;
+
+--Task 15. Restaurant and Rating using aliases Restaurant_Name and Customer_Rating.
+SELECT restaurant_name AS Restaurant_Name,
+       rating AS Customer_Rating
+FROM restaurants;
+
+--Task 16. Restaurant name, owner and brand only.
+SELECT restaurant_name, owner_name, brand
+FROM restaurants;
+
+--Task 17. Sort restaurants by city and then rating descending.
+SELECT * FROM restaurants
+ORDER BY city ASC, rating DESC;
+
+--Task 18. The 5 highest-rated restaurants with more than 10,000 orders.
+SELECT * FROM restaurants
+WHERE orders_count > 10000
+ORDER BY rating DESC
+LIMIT 5;
+
+--Task 19. The 3 most ordered restaurants in Pune.
+SELECT * FROM restaurants
+WHERE city = 'Pune'
+ORDER BY orders_count DESC
+LIMIT 3;
+
+--Task 20. The 5 restaurants with the highest delivery fee.
+SELECT * FROM restaurants
+ORDER BY delivery_fee DESC
+LIMIT 5;
+
+--LEVEL 3 — Find the Hidden Restaurants
+
+
+--Task 21. Restaurant names starting with S.
+SELECT * FROM restaurants
+WHERE restaurant_name LIKE 'S%';
+
+--Task 22. Restaurant names ending with 'House'.
+SELECT * FROM restaurants
+WHERE restaurant_name LIKE '%House';
+
+--Task 23. Restaurant names containing 'Cafe'.
+SELECT * FROM restaurants
+WHERE restaurant_name LIKE '%Cafe%';
+
+--Task 24. Cuisines containing 'Indian'.
+SELECT * FROM restaurants
+WHERE cuisine LIKE '%Indian%';
+
+--Task 25. Restaurant names having exactly 5 characters.
+SELECT * FROM restaurants
+WHERE LENGTH(restaurant_name) = 5;
+
+--Task 26. Owners whose name contains 'Raj'.
+SELECT * FROM restaurants
+WHERE owner_name LIKE '%Raj%';
+
+--Task 27. Brands whose name contains 'Foods'.
+SELECT * FROM restaurants
+WHERE brand LIKE '%Foods%';
+
+--Task 28. Cities whose name starts with 'P'.
+SELECT * FROM restaurants
+WHERE city LIKE 'P%';
+
+--LEVEL 4 — Business Team
+
+--Task 29. Average order value greater than 400 AND rating greater than 4.5.
+SELECT * FROM restaurants
+WHERE avg_order_value > 400 AND rating > 4.5;
+
+--Task 30. Orders greater than 20,000 OR rating greater than 4.7.
+SELECT * FROM restaurants
+WHERE orders_count > 20000 OR rating > 4.7;
+
+--Task 31. Restaurants that are NOT in Pune.
+SELECT * FROM restaurants
+WHERE NOT city = 'Pune';
+
+--Task 32. Delivery time between 25 and 40 minutes.
+SELECT * FROM restaurants
+WHERE est_delivery_time BETWEEN 25 AND 40;
+
+--Task 33. Average order value between 300 and 600.
+SELECT * FROM restaurants
+WHERE avg_order_value BETWEEN 300 AND 600;
+
+--Task 34. Restaurants from Pune or Mumbai.
+SELECT * FROM restaurants
+WHERE city IN ('Pune', 'Mumbai');
+
+--Task 35. Fast Food restaurants with more than 20,000 orders.
+SELECT * FROM restaurants
+WHERE cuisine = 'Fast Food' AND orders_count > 20000;
+
+--Task 36. Rating greater than 4.5 and delivery fee below 40.
+SELECT * FROM restaurants
+WHERE rating > 4.5 AND delivery_fee < 40;
+
+--Task 37. Bengaluru restaurants with more than 10,000 orders.
+SELECT * FROM restaurants
+WHERE city = 'Bengaluru' AND orders_count > 10000;
+
+--Task 38. Owner name is not 'Rahul Jain'.
+SELECT * FROM restaurants
+WHERE owner_name <> 'Rahul Jain';
+
+--LEVEL 5 — Boss Challenges
+
+--Challenge 1 (Hidden Gem). Rating above 4.5 but fewer than 10,000 orders.
+SELECT * FROM restaurants
+WHERE rating > 4.5 AND orders_count < 10000;
+
+--Challenge 2 (Cheap & Popular). Average order value below 300 and orders above 20,000.
+SELECT * FROM restaurants
+WHERE avg_order_value < 300 AND orders_count > 20000;
+
+--Challenge 3 (Fast Delivery). Delivery time below 30 minutes and rating above 4.3.
+SELECT * FROM restaurants
+WHERE est_delivery_time < 30 AND rating > 4.3;
+
+--Challenge 4 (Trending Restaurants). The 3 most ordered restaurants from Mumbai.
+SELECT * FROM restaurants
+WHERE city = 'Mumbai'
+ORDER BY orders_count DESC
+LIMIT 3;
+
+--Challenge 5 (Premium Restaurants). Average order value greater than the average order value of all restaurants, using AVG().
+SELECT * FROM restaurants
+WHERE avg_order_value > (
+    SELECT AVG(avg_order_value) FROM restaurants
+);
+
+--Challenge 6 (City Spotlight). All Pune restaurants sorted by orders, highest to lowest.
+SELECT * FROM restaurants
+WHERE city = 'Pune'
+ORDER BY orders_count DESC;
+
+--Challenge 7 (Cuisine Report). South Indian restaurants - restaurant, city, rating and average order value.
+SELECT restaurant_name, city, rating, avg_order_value
+FROM restaurants
+WHERE cuisine = 'South Indian';
+
+--Challenge 8 (High Value Partners). Average order value above 500 and rating at least 4.5.
+SELECT * FROM restaurants
+WHERE avg_order_value > 500 AND rating >= 4.5;
+
+--FINAL BOSS — CEO Challenge
+
+SELECT restaurant_name, cuisine, city, rating, avg_order_value,
+       orders_count, delivery_fee, owner_name, brand
+FROM restaurants
+WHERE rating > 4.4
+  AND orders_count > 10000
+  AND avg_order_value BETWEEN 300 AND 700
+ORDER BY orders_count DESC
+LIMIT 5;
+
+

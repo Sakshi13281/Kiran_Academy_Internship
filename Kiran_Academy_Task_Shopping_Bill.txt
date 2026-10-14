@@ -1,0 +1,47 @@
+def calculate_electronics_gst(a, b):
+    """Step 1: (a + b) + 18% GST"""
+    subtotal = a + b
+    gst = subtotal * 18 / 100
+    return subtotal + gst
+
+
+def calculate_fashion_gst(c, d):
+    """Step 2: (c + d) + 13% GST"""
+    subtotal = c + d
+    gst = subtotal * 13 / 100
+    return subtotal + gst
+
+
+def calculate_food_gst(e):
+    """Step 3: e + 7% GST"""
+    gst = e * 7 / 100
+    return e + gst
+
+
+def total_bill(a, b, c, d, e):
+    """Step 4: sum of the three GST-inclusive amounts"""
+    return (calculate_electronics_gst(a, b)
+            + calculate_fashion_gst(c, d)
+            + calculate_food_gst(e))
+
+
+def calculate_discounted_bill(a, b, c, d, e):
+    """Step 5: total - 20% discount = final payable amount"""
+    total = total_bill(a, b, c, d, e)
+    discount = total * 20 / 100
+    return total - discount
+
+
+if __name__ == "__main__":
+    
+    a, b, c, d, e = 100, 100, 100, 100, 100
+
+    total = total_bill(a, b, c, d, e)
+    discount = total * 20 / 100
+    final_amount = calculate_discounted_bill(a, b, c, d, e)
+
+    print(f"Electronics GST amount : {calculate_electronics_gst(a, b):.2f}")
+    print(f"Fashion GST amount     : {calculate_fashion_gst(c, d):.2f}")
+    print(f"Food GST amount        : {calculate_food_gst(e):.2f}")
+    print(f"Total after GST = {total:.2f} | Discount = {discount:.2f} | "
+          f"Final payable amount = {final_amount:.2f}")
